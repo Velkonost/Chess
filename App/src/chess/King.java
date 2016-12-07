@@ -32,7 +32,7 @@ public class King extends Figure {
                 synchronized(game){
                    
                     int previousX = this.getX();
-                    int previousY = positionY;
+                    int previousY = this.getY();
                     
                     while (previousX == this.positionX && previousY == this.positionY){
                         
@@ -50,7 +50,6 @@ public class King extends Figure {
                         positionY += positionY < toY ? 1 : -1;
                         if (positionY < 0) positionY = 0;
                         
-                        System.out.println(previousX + " " + positionX);
                     }
                     
                     game.setPlayer(1 - this.playerSide);
