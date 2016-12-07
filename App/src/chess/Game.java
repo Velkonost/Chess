@@ -37,7 +37,8 @@ public class Game {
         
         
     }
-    
+
+    public ArrayList<King> getKings() { return kings; }
     public int getPlayer() { return currentPlayer; }
     public char getFigure(int x, int y){ return gameField[x][y]; }
     public void setPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
