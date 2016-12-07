@@ -6,19 +6,22 @@ import java.util.concurrent.Executors;
 
 public class Game {
     private volatile int currentPlayer;
+
+    public static final char WHITE_KING = 'K';
+    public static final char BLACK_KING = 'k';
     
     private int step;
     
-    private int[][] gameField;
+    private volatile char[][] gameField;
     private ArrayList<King> kings;
     
     public Game() {
         currentPlayer = 0;
         step = 0;
         
-        kings = new ArrayList();
+        kings = new ArrayList<>();
         
-        gameField = new int[8][8];
+        gameField = new char[8][8];
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 gameField[i][j] = 0;
@@ -36,6 +39,7 @@ public class Game {
     }
     
     public int getPlayer() { return currentPlayer; }
+    public char getFigure(int x, int y){ return gameField[x][y]; }
     public void setPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
     
     public void updateField() {
@@ -44,7 +48,11 @@ public class Game {
                 gameField[i][j] = 0;
         
         for (int i = 0; i < kings.size(); i++) {
-            gameField[kings.get(i).getY()][kings.get(i).getX()] = 1;
+            if (kings.get(i).isLive()) {
+                if (kings.get(i).getSide() == 1)
+                    gameField[kings.get(i).getY()][kings.get(i).getX()] = WHITE_KING;
+                else gameField[kings.get(i).getY()][kings.get(i).getX()] = BLACK_KING;
+            }
         }
     }
     
