@@ -9,7 +9,6 @@ public class App {
         // 0 - small
 
         game.createKing(0, 1, 1);
-        
         game.createKing(1, 8, 8);
         
 //        game.printField();
