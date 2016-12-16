@@ -9,6 +9,9 @@ public class Game {
 
     public static final char WHITE_KING = 'K';
     public static final char BLACK_KING = 'k';
+
+    public static final char WHITE_QUENN = 'Q';
+    public static final char BLACK_QUEEN = 'q';
     
     private int step;
     
