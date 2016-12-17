@@ -3,26 +3,39 @@ package chess;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 public class Game {
     private volatile int currentPlayer;
 
+    public static final int WHITE_SIDE = 1;
+    public static final int BLACK_SIDE = 0;
+    
     public static final char WHITE_KING = 'K';
     public static final char BLACK_KING = 'k';
 
     public static final char WHITE_QUENN = 'Q';
     public static final char BLACK_QUEEN = 'q';
     
+    public static Semaphore semaphoreWhite;
+    public static Semaphore semaphoreBlack;
+    
     private int step;
     
     private volatile char[][] gameField;
     private ArrayList<King> kings;
+    
+    private ArrayList<Figure> whiteFigures;
+    private ArrayList<Figure> blackFigures;
     
     public Game() {
         currentPlayer = 0;
         step = 0;
         
         kings = new ArrayList<>();
+        
+        whiteFigures = new ArrayList<>();
+        blackFigures = new ArrayList<>();
         
         gameField = new char[8][8];
         for (int i = 0; i < 8; i++)
@@ -32,13 +45,12 @@ public class Game {
     
     public void createKing(int side, int positionX, int positionY) {
         positionX--; positionY--;
-        
-        gameField[positionY][positionX] = 1;
-        
         King newKing = new King(this, side, positionX, positionY);
-        kings.add(newKing);
+        kings.add(newKing); 
         
-        
+        if (side == WHITE_SIDE)
+            whiteFigures.add(newKing);
+        else blackFigures.add(newKing);
     }
 
     public ArrayList<King> getKings() { return kings; }
@@ -49,21 +61,21 @@ public class Game {
     public void updateField() {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
-                gameField[i][j] = 0;
+                gameField[i][j] = '0';
         
-        for (int i = 0; i < kings.size(); i++) {
-            if (kings.get(i).isLive()) {
+        for (int i = 0; i < kings.size(); i++) 
+            if (kings.get(i).isLive()) 
                 if (kings.get(i).getSide() == 1)
                     gameField[kings.get(i).getY()][kings.get(i).getX()] = WHITE_KING;
                 else gameField[kings.get(i).getY()][kings.get(i).getX()] = BLACK_KING;
-            }
-        }
     }
     
     public void printField(int playerSide) {
         updateField();
         step++;
+        
         System.out.println("Ход: " + step + " Игрок: " + (playerSide + 1));
+        
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++)
                 System.out.print(gameField[i][j] + " ");
@@ -73,11 +85,22 @@ public class Game {
     }
     
     public synchronized void start() {
-         ExecutorService threadPool = Executors.newCachedThreadPool();
+        ExecutorService threadPool = Executors.newCachedThreadPool();
          
-         for (int i = 0; i < kings.size(); i++){
+        semaphoreWhite = new Semaphore(1);
+        semaphoreBlack = new Semaphore(0);
+        
+//            class ResourceUser implement Runnable {
+//    public void run() {
+//        available.acquire();
+//        try {/*...do something...*/}
+//        finally {available.release();}
+//}}
+
+         
+         
+         for (int i = 0; i < kings.size(); i++)
              threadPool.execute(kings.get(i));
-         }
          threadPool.shutdown();
     }
 }
