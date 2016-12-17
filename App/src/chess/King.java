@@ -148,17 +148,15 @@ public class King extends Figure {
 
                         char whoKilled = game.getFigure(positionX, positionY); // need in the future
                         
-
                         ArrayList<King> kings = game.getKings();
                         
-                        for (int i = 0; i < kings.size(); i++){
+                        for (int i = 0; i < kings.size(); i++)
                             if (kings.get(i).getX() == positionX && kings.get(i).getY() == positionY
                                     && kings.get(i).getSide() != this.getSide()) {
                                 kings.get(i).kill();
                                 kings.remove(kings.get(i));
                                 break;
                             }
-                        }
 
                         // task - find killed figure and stop drawing it;
                     } else {

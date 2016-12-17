@@ -89,15 +89,6 @@ public class Game {
          
         semaphoreWhite = new Semaphore(1);
         semaphoreBlack = new Semaphore(0);
-        
-//            class ResourceUser implement Runnable {
-//    public void run() {
-//        available.acquire();
-//        try {/*...do something...*/}
-//        finally {available.release();}
-//}}
-
-         
          
          for (int i = 0; i < kings.size(); i++)
              threadPool.execute(kings.get(i));
