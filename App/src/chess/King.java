@@ -1,13 +1,10 @@
 package chess;
 
 import java.util.ArrayList;
-
-import static chess.Game.BLACK_KING;
-import static chess.Game.WHITE_KING;
-import static chess.Game.semaphoreBlack;
-import static chess.Game.semaphoreWhite;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static chess.Game.*;
 
 public class King extends Figure {
     
@@ -34,7 +31,12 @@ public class King extends Figure {
     public boolean isLive() { return live; }
     public int getSide() { return playerSide; }
 
-    public void kill() { this.live = false; }
+    public void kill() {
+        this.live = false;
+
+        if (this.getSide() == 1) game.removeWhiteFigure(this);
+        else game.removeBlackFigure(this);
+    }
 
     private boolean inAngle() {
         return (positionX == 0 && positionY == 0)

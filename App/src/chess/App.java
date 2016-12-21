@@ -8,9 +8,9 @@ public class App {
         // 1 - Capital letters
         // 0 - small
 
-        game.createKing(0, 1, 1);
+        game.createKing(0, 1, 1); // white
         
-        game.createKing(1, 8, 8);
+        game.createKing(1, 8, 8); // black
         
         game.start();
         

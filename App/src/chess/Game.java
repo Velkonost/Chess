@@ -57,7 +57,10 @@ public class Game {
     public int getPlayer() { return currentPlayer; }
     public char getFigure(int x, int y){ return gameField[x][y]; }
     public void setPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
-    
+
+    public void removeWhiteFigure(Figure figure){ this.whiteFigures.remove(figure); }
+    public void removeBlackFigure(Figure figure){ this.blackFigures.remove(figure); }
+
     public void updateField() {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
