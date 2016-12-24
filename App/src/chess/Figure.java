@@ -9,7 +9,8 @@ class Figure implements Runnable {
         this.positionY = positionY;
     }
 
-   
+    public Figure(){}
+    
     public int getX() { return positionX; }
     public int getY() { return positionY; }
 

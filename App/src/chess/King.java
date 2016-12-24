@@ -15,17 +15,27 @@ public class King extends Figure {
     private volatile int positionX;
     private volatile int positionY;
     
-    public King(Game game, int playerSide, int positionX, int positionY) {
-        super(positionX, positionY);
-        this.game = game;
-        
+    public King(){
+        super();
         live = true;
-        
-        this.playerSide = playerSide;
-        this.positionX = positionX;
-        this.positionY = positionY;
     }
+    
+//    public King(Game game, int playerSide, int positionX, int positionY) {
+//        super(positionX, positionY);
+//        this.game = game;
+//        
+//        live = true;
+//        
+//        this.playerSide = playerSide;
+//        this.positionX = positionX;
+//        this.positionY = positionY;
+//    }
 
+    public void setGame (Game game) { this.game = game; }
+    public void setX(int positionX) { this.positionX = positionX; }
+    public void setY(int positionY) { this.positionY = positionY; }
+    public void setSide (int playerSide) {this.playerSide = playerSide; }
+    
     @Override public int getX() { return positionX; }
     @Override public int getY() { return positionY; }
     public boolean isLive() { return live; }

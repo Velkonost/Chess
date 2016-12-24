@@ -1,5 +1,8 @@
 package chess;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,6 +11,8 @@ import java.util.concurrent.Semaphore;
 public class Game {
     private volatile int currentPlayer;
 
+    public static final String KING = "King";
+    
     public static final int WHITE_SIDE = 1;
     public static final int BLACK_SIDE = 0;
     
@@ -29,7 +34,7 @@ public class Game {
     private ArrayList<Figure> blackFigures;
     
     public Game() {
-        currentPlayer = 0;
+        currentPlayer = 1;
         step = 0;
         
         kings = new ArrayList<>();
@@ -41,16 +46,6 @@ public class Game {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 gameField[i][j] = 0;
-    }
-    
-    public void createKing(int side, int positionX, int positionY) {
-        positionX--; positionY--;
-        King newKing = new King(this, side, positionX, positionY);
-        kings.add(newKing); 
-        
-        if (side == WHITE_SIDE)
-            whiteFigures.add(newKing);
-        else blackFigures.add(newKing);
     }
 
     public ArrayList<King> getKings() { return kings; }
@@ -77,7 +72,7 @@ public class Game {
         updateField();
         step++;
         
-        System.out.println("Ход: " + step + " Игрок: " + (playerSide + 1));
+        System.out.println("Ход: " + step + " Игрок: " + (playerSide == WHITE_SIDE ? 1 : 2));
         
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++)
@@ -87,7 +82,44 @@ public class Game {
         System.out.println();
     }
     
-    public synchronized void start() {
+    public void start() throws ClassNotFoundException, InstantiationException, 
+            IllegalAccessException, NoSuchFieldException, NoSuchMethodException,
+            IllegalArgumentException, InvocationTargetException {
+        
+        String[] figuresName = {KING};
+       
+        for (int i = 0; i < 2; i++)
+            for (String figure : figuresName) {
+                Class classFigure = Class.forName("chess." + figure);
+                Object myObj; 
+//                myObj = classFigure.getConstructor(Game.class, int.class, int.class, int.class).newInstance(this, 0, 0, 0);
+                myObj = classFigure.newInstance();
+
+                switch(figure) {
+                    case KING:
+
+                        King newKing = (King) myObj;
+                        
+                        Method methodSetGame = classFigure.getMethod("setGame", new Class[] { Game.class });
+                        methodSetGame.invoke(myObj, this);
+               
+                        Method methodSetX = classFigure.getMethod("setX", new Class[] { int.class });
+                        methodSetX.invoke(myObj, (i == WHITE_SIDE ? 0 : 7));
+                        
+                        Method methodSetY = classFigure.getMethod("setY", new Class[] { int.class });
+                        methodSetY.invoke(myObj, (i == WHITE_SIDE ? 0 : 7));
+
+                        Method methodSetSide = classFigure.getMethod("setSide", new Class[] { int.class });
+                        methodSetSide.invoke(myObj, i);
+                        
+                        kings.add(newKing);
+                        if (i == WHITE_SIDE) whiteFigures.add(newKing);
+                        else blackFigures.add(newKing);
+
+                        break;
+                }
+            }
+ 
         ExecutorService threadPool = Executors.newCachedThreadPool();
          
         semaphoreWhite = new Semaphore(1);
