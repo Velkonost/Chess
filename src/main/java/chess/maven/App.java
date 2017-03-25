@@ -9,22 +9,15 @@ import sun.applet.Main;
 @SpringBootApplication
 public class App {
     
-    
-  public static void main(String[] a) throws InterruptedException, ClassNotFoundException,
-            InstantiationException, IllegalAccessException, NoSuchFieldException,
-            NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
-      
-    ApplicationContext ctx = SpringApplication.run(Main.class, a);
-    
-    Class classGame = Class.forName("chess.maven.Game");
-        Object gameObj = classGame.newInstance(); 
-        Game game  = (Game) gameObj; 
+  // 1 - Capital letters
+  // 0 - small
+    public static void main(String[] a) throws InterruptedException, ClassNotFoundException,
+              InstantiationException, IllegalAccessException, NoSuchFieldException,
+              NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 
-        // 1 - Capital letters
-        // 0 - small
+        ApplicationContext ctx = SpringApplication.run(App.class, a);
+        Game game  = ctx.getBean(Game.class);
         game.start();
-    
-//    Reporter reporter = ctx.getBean(Reporter.class);
-//    reporter.sendReports();
-  }
+
+    }
 }

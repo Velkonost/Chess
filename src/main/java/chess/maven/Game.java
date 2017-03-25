@@ -67,7 +67,7 @@ public class Game implements GameInterface {
     
     public void printField(int playerSide) {
         updateField();
-        step++;
+        step ++;
         
         System.out.println("Ход: " + step + " Игрок: " + (playerSide == WHITE_SIDE ? 1 : 2));
         
