@@ -9,22 +9,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static chess.maven.Game.*;
+import chess.maven.interfaces.GameInterface;
 import chess.maven.interfaces.KingInterface;
 
 public class King extends Figure implements KingInterface {
-       
-    private int playerSide;
-    private boolean live;
-    
-    private volatile int positionX;
-    private volatile int positionY;
     
     public King(){
         super();
         live = true;
     }
     
-    public King(Game game, int playerSide, int positionX, int positionY) {
+    public King(GameInterface game, int playerSide, int positionX, int positionY) {
         super(positionX, positionY);
         this.game = game;
         
@@ -36,14 +31,7 @@ public class King extends Figure implements KingInterface {
     }
 
     
-    public void setX(int positionX) { this.positionX = positionX; }
-    public void setY(int positionY) { this.positionY = positionY; }
-    public void setSide (int playerSide) {this.playerSide = playerSide; }
-    
-    @Override public int getX() { return positionX; }
-    @Override public int getY() { return positionY; }
-    public boolean isLive() { return live; }
-    public int getSide() { return playerSide; }
+
 
     @Override
     public void kill() {

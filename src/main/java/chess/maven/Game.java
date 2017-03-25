@@ -10,9 +10,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -79,43 +81,21 @@ public class Game implements GameInterface {
         System.out.println();
     }
     
+    @Autowired
+    public void getFigures(List<Figure> figures) {
+        for (Figure figure : figures) {
+            if (String.valueOf(figure.getClass())
+                    .equals("class chess.maven.figures.King"))
+                kings.add((King)figure);
+            
+            if (figure.getSide() == WHITE_SIDE) whiteFigures.add(figure);
+            else blackFigures.add(figure);
+        } 
+    }
+    
     public void start() throws ClassNotFoundException, InstantiationException, 
             IllegalAccessException, NoSuchFieldException, NoSuchMethodException,
             IllegalArgumentException, InvocationTargetException {
-        
-        String[] figuresName = {KING};
-       
-        for (int i = 0; i < 2; i++)
-            for (String figure : figuresName) {
-                Class classFigure = Class.forName("chess.maven.figures." + figure);
-                Object myObj; 
-//                myObj = classFigure.getConstructor(Game.class, int.class, int.class, int.class).newInstance(this, 0, 0, 0);
-                myObj = classFigure.newInstance();
-
-                switch(figure) {
-                    case KING:
-
-                        King newKing = (King) myObj;
-                        
-                        Method methodSetGame = classFigure.getMethod("setGame", new Class[] { Game.class });
-                        methodSetGame.invoke(myObj, this);
-               
-                        Method methodSetX = classFigure.getMethod("setX", new Class[] { int.class });
-                        methodSetX.invoke(myObj, (i == WHITE_SIDE ? 0 : 7));
-                        
-                        Method methodSetY = classFigure.getMethod("setY", new Class[] { int.class });
-                        methodSetY.invoke(myObj, (i == WHITE_SIDE ? 0 : 7));
-
-                        Method methodSetSide = classFigure.getMethod("setSide", new Class[] { int.class });
-                        methodSetSide.invoke(myObj, i);
-                        
-                        kings.add(newKing);
-                        if (i == WHITE_SIDE) whiteFigures.add(newKing);
-                        else blackFigures.add(newKing);
-
-                        break;
-                }
-            }
  
         ExecutorService threadPool = Executors.newCachedThreadPool();
          
