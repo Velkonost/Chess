@@ -1,4 +1,4 @@
-package db;
+package chess.maven.db;
 
 import chess.maven.Figure;
 import java.util.List;

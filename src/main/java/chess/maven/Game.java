@@ -6,7 +6,7 @@ import static chess.maven.Constants.KING;
 import static chess.maven.Constants.WHITE_KING;
 import static chess.maven.Constants.WHITE_SIDE;
 import chess.maven.interfaces.GameInterface;
-import db.DAO;
+import chess.maven.db.DAO;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

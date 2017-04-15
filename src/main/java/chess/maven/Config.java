@@ -2,7 +2,7 @@ package chess.maven;
 
 import chess.maven.figures.King;
 import chess.maven.interfaces.GameInterface;
-import db.DAO;
+import chess.maven.db.DAO;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
