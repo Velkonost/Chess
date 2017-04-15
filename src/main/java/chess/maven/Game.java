@@ -6,6 +6,7 @@ import static chess.maven.Constants.KING;
 import static chess.maven.Constants.WHITE_KING;
 import static chess.maven.Constants.WHITE_SIDE;
 import chess.maven.interfaces.GameInterface;
+import db.DAO;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,7 +17,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 @Component
 public class Game implements GameInterface {
     private volatile int currentPlayer;
@@ -32,6 +35,9 @@ public class Game implements GameInterface {
     private ArrayList<Figure> whiteFigures;
     private ArrayList<Figure> blackFigures;
     
+    private DAO dao;
+    
+   
     public Game() {
         currentPlayer = 1;
         step = 0;
@@ -45,15 +51,29 @@ public class Game implements GameInterface {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 gameField[i][j] = 0;
+        
     }
 
-    public ArrayList<King> getKings() { return kings; }
-    public int getPlayer() { return currentPlayer; }
-    public char getFigure(int x, int y){ return gameField[x][y]; }
-    public void setPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
+     public void saveLastStep() {
+        dao.saveStep(step);
+    }
 
-    public void removeWhiteFigure(Figure figure){ this.whiteFigures.remove(figure); }
-    public void removeBlackFigure(Figure figure){ this.blackFigures.remove(figure); }
+    public int getLastStep() {
+        return dao.getLastStep().get(0);
+    }
+     
+    @Autowired
+    public void getDAO(DAO dao) {
+        this.dao = dao;
+    }
+    
+    @Override public ArrayList<King> getKings() { return kings; }
+    @Override public int getPlayer() { return currentPlayer; }
+    @Override public char getFigure(int x, int y){ return gameField[x][y]; }
+    @Override public void setPlayer(int currentPlayer) { this.currentPlayer = currentPlayer; }
+
+    @Override public void removeWhiteFigure(Figure figure){ this.whiteFigures.remove(figure); }
+    @Override public void removeBlackFigure(Figure figure){ this.blackFigures.remove(figure); }
 
     public void updateField() {
         for (int i = 0; i < 8; i++)
@@ -67,6 +87,7 @@ public class Game implements GameInterface {
                 else gameField[kings.get(i).getY()][kings.get(i).getX()] = BLACK_KING;
     }
     
+    @Override
     public void printField(int playerSide) {
         updateField();
         step ++;
@@ -79,6 +100,9 @@ public class Game implements GameInterface {
             System.out.println();
         }
         System.out.println();
+        
+        saveLastStep();
+        System.out.println(getLastStep());
     }
     
     @Autowired

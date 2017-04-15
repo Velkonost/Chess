@@ -15,7 +15,7 @@ public class App {
               NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 
         ApplicationContext ctx = SpringApplication.run(App.class, a);
-        Game game  = ctx.getBean(Game.class);
+        Game game = ctx.getBean(Game.class);
         game.start();
 
     }
