@@ -36,7 +36,6 @@ public class Game implements GameInterface {
     private ArrayList<Figure> blackFigures;
     
     private DAO dao;
-    
    
     public Game() {
         currentPlayer = 1;

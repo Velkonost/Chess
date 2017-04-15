@@ -28,17 +28,19 @@ public class DAO extends JdbcDaoSupport implements DAOInterface {
     @Override
     public void saveStep(int step) {
         this.getJdbcTemplate().update(
-        "INSERT INTO STEPS(PLAYER_ID) VALUES(?)", step
+        "UPDATE STEPS SET PLAYER_ID='" + step + "' WHERE ID=1"
        );
     }
 
     @Override
     public List<Integer> getLastStep() {
-       return this.getJdbcTemplate().query("SELECT PLAYER_ID FROM STEPS",
+       return this.getJdbcTemplate().query("SELECT PLAYER_ID FROM STEPS WHERE ID=1",
                (RowMapper<Integer>) new RowMapper<Integer>() {
            @Override
            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+             
                return rs.getInt("PLAYER_ID");
+               
            }       
         });
     }
