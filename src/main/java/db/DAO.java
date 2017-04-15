@@ -1,6 +1,7 @@
 package db;
 
 
+import chess.maven.Figure;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +44,30 @@ public class DAO extends JdbcDaoSupport implements DAOInterface {
                
            }       
         });
+    }
+
+    @Override
+    public void saveField(char[][] field) {
+      
+    }
+
+    @Override
+    public void saveFigures(int side, List<Figure> figures) {
+    }
+
+    @Override
+    public int getStep() {
+        return 0;
+    }
+
+    @Override
+    public char[][] getField() {
+        return null;
+    }
+
+    @Override
+    public List<Figure> getFigures(int side) {
+       return null;
     }
     
 }

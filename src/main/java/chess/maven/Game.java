@@ -100,7 +100,7 @@ public class Game implements GameInterface {
         }
         System.out.println();
         
-        saveLastStep();
+//        saveLastStep();
         System.out.println(getLastStep());
     }
     
