@@ -1,0 +1,12 @@
+chess\maven\App.class
+chess\maven\Game.class
+chess\maven\figures\Queen.class
+chess\maven\interfaces\GameInterface.class
+chess\maven\Config.class
+chess\maven\interfaces\KingInterface.class
+chess\maven\db\DAO.class
+chess\maven\Constants.class
+chess\maven\db\DAO$1.class
+chess\maven\Figure.class
+chess\maven\db\DAOInterface.class
+chess\maven\figures\King.class

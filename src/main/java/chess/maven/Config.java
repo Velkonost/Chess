@@ -4,7 +4,9 @@ import chess.maven.figures.King;
 import chess.maven.interfaces.GameInterface;
 import chess.maven.db.DAO;
 import javax.sql.DataSource;
+import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,9 +34,6 @@ public class Config {
         return new DAO(dataSource);
     }
     
-    
-    
-    
     @Bean
     @Autowired
     public DataSource dataSource() {
@@ -58,4 +57,14 @@ public class Config {
           + "ID BIGINT AUTO_INCREMENT PRIMARY KEY,"
           + "PLAYER_ID INT);");
     }
+    
+    
+    @Bean
+ServletRegistrationBean h2servletRegistration() {
+  ServletRegistrationBean registrationBean
+    = new ServletRegistrationBean(new WebServlet());
+  registrationBean.addUrlMappings("/console/*");
+  return registrationBean;
+}
+
 }

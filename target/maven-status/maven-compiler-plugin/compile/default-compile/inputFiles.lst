@@ -1,5 +1,11 @@
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\Config.java
 C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\Game.java
 C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\Figure.java
-C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\King.java
-C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\Queen.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\db\DAOInterface.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\interfaces\KingInterface.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\Constants.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\figures\King.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\figures\Queen.java
 C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\App.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\db\DAO.java
+C:\Users\Ўкола программиста\klim\maven_chess\src\main\java\chess\maven\interfaces\GameInterface.java

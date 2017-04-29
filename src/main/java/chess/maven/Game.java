@@ -50,7 +50,6 @@ public class Game implements GameInterface {
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 gameField[i][j] = 0;
-        
     }
 
      public void saveLastStep() {
@@ -116,9 +115,7 @@ public class Game implements GameInterface {
         } 
     }
     
-    public void start() throws ClassNotFoundException, InstantiationException, 
-            IllegalAccessException, NoSuchFieldException, NoSuchMethodException,
-            IllegalArgumentException, InvocationTargetException {
+    public void start() {
  
         ExecutorService threadPool = Executors.newCachedThreadPool();
          
