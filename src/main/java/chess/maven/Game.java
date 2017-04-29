@@ -49,7 +49,7 @@ public class Game implements GameInterface {
         gameField = new char[8][8];
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
-                gameField[i][j] = 0;
+                gameField[i][j] = '0';
     }
 
      public void saveLastStep() {
@@ -85,6 +85,8 @@ public class Game implements GameInterface {
                 else gameField[kings.get(i).getY()][kings.get(i).getX()] = BLACK_KING;
     }
     
+    public char[][] getField() { return gameField; }
+    
     @Override
     public void printField(int playerSide) {
         updateField();
@@ -98,9 +100,6 @@ public class Game implements GameInterface {
             System.out.println();
         }
         System.out.println();
-        
-//        saveLastStep();
-        System.out.println(getLastStep());
     }
     
     @Autowired

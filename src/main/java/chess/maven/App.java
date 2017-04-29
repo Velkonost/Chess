@@ -8,15 +8,17 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class App {
     
+    public static ApplicationContext ctx;
+    
   // 1 - Capital letters
   // 0 - small
+    public static Game game;
     public static void main(String[] a) throws InterruptedException, ClassNotFoundException,
               InstantiationException, IllegalAccessException, NoSuchFieldException,
               NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 
-        ApplicationContext ctx = SpringApplication.run(App.class, a);
-        Game game = ctx.getBean(Game.class);
-        game.start();
+        ctx = SpringApplication.run(App.class, a);
+       
 
     }
 }
