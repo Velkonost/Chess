@@ -198,5 +198,7 @@ public class King extends Figure implements KingInterface {
                 else semaphoreWhite.release();
             }
         }
+        
+        return;
     } 
 }

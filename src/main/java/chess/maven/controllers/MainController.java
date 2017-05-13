@@ -16,9 +16,8 @@ public class MainController {
         game.start();
         
         char[][] gameField = game.getField();
-        System.out.print(gameField[0][0] + " ");
-        model.addAttribute("field", gameField[0][0]);
-        model.addAttribute("login", "It is my login");
+        if (gameField != null) model.addAttribute("start", "Game started successful!");
+        else model.addAttribute("start", "Game didn't start. There is an error!");
         
         return "game";
     } 

@@ -89,17 +89,25 @@ public class Game implements GameInterface {
     
     @Override
     public void printField(int playerSide) {
-        updateField();
-        step ++;
         
-        System.out.println("Ход: " + step + " Игрок: " + (playerSide == WHITE_SIDE ? 1 : 2));
-        
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++)
-                System.out.print(gameField[i][j] + " ");
+        if (whiteFigures.size() != 0 && blackFigures.size() != 0) {
+            updateField();
+            step ++;
+
+            System.out.println("Ход: " + step + " Игрок: " + (playerSide == WHITE_SIDE ? 1 : 2));
+
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++)
+                    System.out.print(gameField[i][j] + " ");
+                System.out.println();
+            }
             System.out.println();
+        } else if(blackFigures.size() == 0) {
+            System.out.println(11111);
+        } else if (whiteFigures.size() == 0) {
+            System.out.println(2222);
+//            for (int i = 0;)
         }
-        System.out.println();
     }
     
     @Autowired
